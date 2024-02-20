@@ -1,0 +1,33 @@
+<html>
+ <head>
+  <title>Verjaardagskalender</title>
+  <style>
+   table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 3px;
+   }
+   tr:nth-child(even) {
+    background-color: #f2f2f2
+   }
+  </style>
+ </head>
+ <body>
+  <p>
+    Verjaardagskalender
+  </p>
+  <p>
+    {% if data %}
+      <table>
+      <tr><th>Naam</th><th>Datum</th><th>Maand</th><th>Dag</th><th>Dagen</th></tr>
+      {% for day in data %}
+        <tr><td>{{day['name']}}</td><td>{{day['date']}}</td><td>{{day['month']}}</td><td>{{day['day']}}</td><td>{{day['ageindays']}}</td></tr>
+      {% endfor %}
+      </table>
+    {% else %}
+      <p>No data</a>
+    {% endif %}
+  </p>
+ </body>
+</html>
+

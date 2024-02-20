@@ -1,0 +1,40 @@
+<html>
+ <head>
+  <title>Verjaardagskalender</title>
+  <style>
+   table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 3px;
+   }
+   tr:nth-child(even) {
+    background-color: #f2f2f2
+   }
+  </style>
+ </head>
+ <body>
+  <p>
+    Verjaardagskalender
+  </p>
+  <p>
+    {% if user %}
+      <pre>
+      {{ user|tojson }}
+      </pre>
+      <br/><br/>
+      {{ token }}
+      <br/>
+      {% if valid %}
+        Token is geldig
+      {% else %}
+        Token is niet meer geldig
+      {% endif %}
+      <br/>
+      <a href="/verjaardagskalender/logout">logout</a>
+    {% else %}
+      <a href="/verjaardagskalender/login">login</a>
+    {% endif %}
+  </p>
+ </body>
+</html>
+
