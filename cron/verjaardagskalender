@@ -1,0 +1,1 @@
+@reboot root [ -x /opt/verjaardagskalender/run.sh ] && /opt/verjaardagskalender/run.sh >> /home/peter/logs/cron_verjaardagskalender.log 2>&1
