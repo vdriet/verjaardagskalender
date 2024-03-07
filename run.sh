@@ -1,4 +1,4 @@
-cd /home/peter/dev/verjaardagskalender
+cd /opt/verjaardagskalender
 docker stop verjaardagskalender
 docker rm -f verjaardagskalender
 docker run \
