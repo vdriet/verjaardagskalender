@@ -1,2 +1,2 @@
 cd ../webserver
-docker compose restart
+docker compose up -d
