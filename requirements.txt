@@ -14,7 +14,7 @@ pip==24.0
 pycparser==2.22
 requests==2.32.3
 setuptools==70.0.0
-slack_sdk==3.28.0
+slack_sdk==3.29.0
 urllib3==2.2.1
 waitress==3.0.0
 Werkzeug==3.0.3
