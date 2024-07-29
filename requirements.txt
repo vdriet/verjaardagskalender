@@ -13,7 +13,7 @@ MarkupSafe==2.1.5
 pip==24.1.2
 pycparser==2.22
 requests==2.32.3
-setuptools==71.1.0
+setuptools==72.0.0
 slack_sdk==3.31.0
 urllib3==2.2.2
 waitress==3.0.0
