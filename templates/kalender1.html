@@ -19,7 +19,9 @@
   <p>
     {% if data %}
       {% for month in data %}
+        <h1>{{month}}</h1>
         {% for day in month %}
+          <h2>{{day}}</h2>
           <p>{{day['name']}} {{day['date']}}</p>
         {% endfor %}
       {% endfor %}
