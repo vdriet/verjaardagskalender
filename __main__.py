@@ -85,7 +85,7 @@ def kalender1():
     day = row['day']
     monthdata = newdata.get(f'{month}', {})
     daydata = newdata.get(f'{day}', {})
-    daydata[row['name']] = row['ageinday']
+    daydata[row['name']] = row['ageindays']
     monthdata[month] = daydata
   print(monthdata)
   return render_template('kalender.html', data=newdata)
