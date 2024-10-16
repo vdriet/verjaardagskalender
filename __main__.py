@@ -86,8 +86,9 @@ def kalender1():
     monthdata = newdata.get(f'{month}', {})
     daydata = newdata.get(f'{day}', {})
     daydata[row['name']] = row['ageindays']
-    monthdata[month] = daydata
-  print(monthdata)
+    monthdata[day] = daydata
+    newdata[month] = monthdata
+  print(newdata)
   return render_template('kalender.html', data=newdata)
 
 def getconnections():
