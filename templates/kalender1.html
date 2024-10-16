@@ -22,7 +22,8 @@
         <h1>{{month}}</h1>
         {% for day in data[month] %}
           <h2>{{day}}</h2>
-          <p>{{data[month][day]['name']}} {{data[month][day]['age']}}</p>
+          {% for name in day %}
+          <p>{{name}} {{day[name]}}</p>
         {% endfor %}
       {% endfor %}
     {% else %}
