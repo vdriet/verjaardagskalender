@@ -23,7 +23,8 @@
         {% for day in data[month] %}
           <h2>{{day}}</h2>
           {% for name in day %}
-          <p>{{name}} {{day[name]}}</p>
+            <p>{{name}} {{day[name]}}</p>
+          {% endfor %}
         {% endfor %}
       {% endfor %}
     {% else %}
