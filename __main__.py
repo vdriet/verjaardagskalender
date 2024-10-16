@@ -84,15 +84,11 @@ def kalender1():
     month = row['month']
     day = row['day']
     monthdata = newdata.get(f'{month}', {})
-    print(monthdata)
     daydata = monthdata.get(f'{day}', {})
-    print(daydata)
     daydata[row['name']] = row['ageindays']
-    print(daydata)
     monthdata[f'{day}'] = daydata
     newdata[f'{month}'] = monthdata
-  print(newdata)
-  return render_template('kalender.html', data=newdata)
+  return render_template('kalender1.html', data=newdata)
 
 def getconnections():
   """ haal de contacten op """
