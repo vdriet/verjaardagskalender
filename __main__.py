@@ -79,8 +79,15 @@ def kalender1():
     return oauth.google.authorize_redirect(redirect_uri)
   connections = getconnections()
   data = processconnections(connections)
-  newdata = sorted(data, key=lambda d: (d['month'], d['day']))
-  print(newdata)
+  newdata = {}
+  for row in data:
+    month = row['month']
+    day = row['day']
+    monthdata = newdata.get(f'{month}', {})
+    daydata = newdata.get(f'{day}', {})
+    daydata[row['name']] = row['ageinday']
+    monthdata[month] = daydata
+  print(monthdata)
   return render_template('kalender.html', data=newdata)
 
 def getconnections():
