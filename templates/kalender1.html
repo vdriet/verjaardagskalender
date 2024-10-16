@@ -18,9 +18,9 @@
   </p>
   <p>
     {% if data %}
-      {% for month in data %}
+      {% for month in 1..12 %}
         <h1>{{month}}</h1>
-        {% for day in data[month] %}
+        {% for day in 1..31 %}
           <h2>{{day}}</h2>
           {% for name in data[month][day] %}
             <p>{{name}} {{data[month][day][name]}}</p>
