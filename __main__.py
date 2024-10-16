@@ -79,7 +79,7 @@ def kalender1():
     return oauth.google.authorize_redirect(redirect_uri)
   connections = getconnections()
   data = processconnections(connections)
-  newdata = sorted(data, key=lambda d: d['sortkey'])
+  newdata = sorted(data, key=lambda d: (d['month'], d['day']))
   print(newdata)
   return render_template('kalender.html', data=newdata)
 
