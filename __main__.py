@@ -70,6 +70,19 @@ def kalender():
   newdata = sorted(data, key=lambda d: d['sortkey'])
   return render_template('kalender.html', data=newdata)
 
+@app.route('/verjaardagskalender/show1', methods=['GET'])
+def kalender1():
+  """ ophalen van de verjaardagskalender """
+  if not istokenvalid():
+    redirect_uri = url_for('authorize', _external=True, _scheme='https')
+    session['returnpath'] = '/verjaardagskalender/show1'
+    return oauth.google.authorize_redirect(redirect_uri)
+  connections = getconnections()
+  data = processconnections(connections)
+  newdata = sorted(data, key=lambda d: d['sortkey'])
+  print(newdata)
+  return render_template('kalender.html', data=newdata)
+
 def getconnections():
   """ haal de contacten op """
   url = 'https://people.googleapis.com/v1/people/me/connections?personFields=names,birthdays,events'
