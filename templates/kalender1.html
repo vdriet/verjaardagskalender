@@ -22,9 +22,11 @@
         <h1>{{month}}</h1>
         {% for day in range(1, 31) %}
           <h2>{{day}}</h2>
-          {% for name in data[month][day] %}
-            <p>{{name}} {{data[month][day][name]}}</p>
-          {% endfor %}
+          {% if data[month][day] %}
+            {% for name in data[month][day] %}
+              <p>{{name}} {{data[month][day][name]}}</p>
+            {% endfor %}
+          {% endif %}
         {% endfor %}
       {% endfor %}
     {% else %}
