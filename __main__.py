@@ -88,7 +88,8 @@ def kalender1():
     daydata[row['name']] = row['ageindays']
     monthdata[f'{day}'] = daydata
     newdata[f'{month}'] = monthdata
-  return render_template('kalender1.html', data=newdata)
+  sorteddata = sorted(newdata)
+  return render_template('kalender1.html', data=sorteddata)
 
 def getconnections():
   """ haal de contacten op """
