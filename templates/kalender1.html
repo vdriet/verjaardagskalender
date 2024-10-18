@@ -23,7 +23,7 @@
         {% for month in data %}
           {% if monthnr == month %}
             {% for day in data[month] %}
-              <p>{{ day }} {{data[month][day]}}</p>
+              <p>{{ day }} {{ data[month][day] }}</p>
             {% endfor %}
           {% endif %}
         {% endfor %}
