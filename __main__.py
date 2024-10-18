@@ -86,8 +86,8 @@ def kalender1():
     monthdata = newdata.get(month, {})
     daydata = monthdata.get(day, {})
     daydata[row['name']] = row['ageindays']
-    monthdata[f'{day}'] = daydata
-    newdata[f'{month}'] = monthdata
+    monthdata[day] = daydata
+    newdata[month] = monthdata
   print(newdata)
   return render_template('kalender1.html', data=newdata)
 
