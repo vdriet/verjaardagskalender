@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1)
 
 app.config['PREFERRED_URL_SCHEME'] = 'https'
-SHOWDAYS = 100
+SHOWDAYS = 365
 oauth = OAuth(app)
 
 oauth.register(
