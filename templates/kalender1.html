@@ -18,23 +18,18 @@
   </p>
   <p>
     {% if data %}
-      {% for month in range(1, 13) %}
-        {% if data[month] != None && data[month]|length > 0 %}
-          <h1>{{month}}</h1>
-          {% for day in range(1, 32) %}
-            <h2>{{day}}</h2>
-            {% if data[month][day] != None && data[month][day]|lenght > 0 %}
-              {% for name in data[month][day] %}
-                <p>{{name}} {{data.month.day.name}}</p>
-              {% endfor %}
-            {% endif %}
-          {% endfor %}
-        {% else %}
-          <p>No data for month {{month}}</a>
-        {% endif %}
+      {% for monthnr in range(1, 13) %}
+        <h1>{{monthnr}}</h1>
+        {% for month in data %}
+          {% if monthnr == month %}
+            {% for day in data[month] %}
+              <p>{{ day }} {{data[month][day]}}</p>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
       {% endfor %}
     {% else %}
-      <p>No data</a>
+      <p>No data</p>
     {% endif %}
   </p>
  </body>

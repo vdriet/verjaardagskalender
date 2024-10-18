@@ -81,10 +81,10 @@ def kalender1():
   data = processconnections(connections)
   newdata = {}
   for row in data:
-    month = row['month']
-    day = row['day']
-    monthdata = newdata.get(f'{month}', {})
-    daydata = monthdata.get(f'{day}', {})
+    month = int(row['month'])
+    day = int(row['day'])
+    monthdata = newdata.get(month, {})
+    daydata = monthdata.get(day, {})
     daydata[row['name']] = row['ageindays']
     monthdata[f'{day}'] = daydata
     newdata[f'{month}'] = monthdata
