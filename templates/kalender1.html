@@ -10,14 +10,15 @@
    .month {
     background: blue;
     color: white;
-    text-align: center;
     font-size: 32px;
+    text-align: center;
    }
    .day {
     background: blue;
     color: white;
     font-size: 24px;
     text-align: center;
+    vertical-align: top;
     width: 32px;
    }
    .birthdays {
@@ -52,7 +53,7 @@
           {% endfor %}
           </td>
          {% else %}
-          <td></td><td></td>
+          <td colspan=2 class="birthdays"></td>
          {% endif %}
         {% endfor %}
         </tr>
