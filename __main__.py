@@ -88,7 +88,6 @@ def kalender1():
     daydata[row['name']] = row['ageindays']
     monthdata[day] = daydata
     newdata[month] = monthdata
-  print(newdata)
   return render_template('kalender1.html', data=newdata)
 
 def getconnections():
@@ -166,7 +165,7 @@ def showdaysage(ageindays):
   """ bepaal of de datum op basis van aantal dagen getoond moet worden """
   if ageindays == '-':
     return False
-  if int(ageindays) % 1000 > (1000 - SHOWDAYS):
+  if int(ageindays) % 1000 => (1000 - SHOWDAYS):
     return True
   return False
 
