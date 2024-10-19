@@ -22,7 +22,7 @@
               {% for kolom in range(0, 4) %}
                 <td>{{ daynr + kolom * 8}}
                 {% for day in data[month] %}
-                  {% if daynr == day %}
+                  {% if (daynr + kolom * 8) == day %}
                     {% for t in data[month][day] %}
                       {{ t }} {{ data[month][day][t] }}<br/>
                     {% endfor %}
