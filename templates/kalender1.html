@@ -14,13 +14,13 @@
     {% if data %}
       {% for monthnr in range(1, 13) %}
         <table>
-        <tr><th colspan=4>{{monthnr}}</th></tr>
+        <tr><th colspan=8>{{monthnr}}</th></tr>
         {% for month in data %}
           {% if monthnr == month %}
             {% for daynr in range(1, 9) %}
               <tr>
               {% for kolom in range(0, 4) %}
-                <td>{{ daynr + kolom * 8}}
+                <td>{{ daynr + kolom * 8}}</td><td>
                 {% for day in data[month] %}
                   {% if (daynr + kolom * 8) == day %}
                     {% for t in data[month][day] %}
