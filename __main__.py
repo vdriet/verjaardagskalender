@@ -123,8 +123,6 @@ def createrow(name, year, month, day):
       sortyear += 1
     ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
                                 sortyear, month, day, f'({year})'))
-  if 'Angela' in name:
-    print(name, ageindays)
   if showdaysage(ageindays):
     celebrateday = today + timedelta(1000 - ageindays % 1000)
     daysyear = celebrateday.year
@@ -167,7 +165,8 @@ def showdaysage(ageindays):
   """ bepaal of de datum op basis van aantal dagen getoond moet worden """
   if ageindays == '-':
     return False
-  if int(ageindays) % 1000 >= (1000 - SHOWDAYS):
+  daysinto1000 = int(ageindays) % 1000
+  if daysinto1000 == 0 or daysinto1000 > (1000 - SHOWDAYS):
     return True
   return False
 
