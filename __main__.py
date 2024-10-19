@@ -67,7 +67,15 @@ def kalender():
     return oauth.google.authorize_redirect(redirect_uri)
   connections = getconnections()
   data = processconnections(connections)
-  newdata = sorted(data, key=lambda d: d['sortkey'])
+  newdata = {}
+  for row in data:
+    month = int(row['month'])
+    day = int(row['day'])
+    monthdata = newdata.get(month, {})
+    daydata = monthdata.get(day, {})
+    daydata[row['name']] = row['ageindays']
+    monthdata[day] = daydata
+    newdata[month] = monthdata
   return render_template('kalender.html', data=newdata)
 
 @app.route('/verjaardagskalender/show1', methods=['GET'])
