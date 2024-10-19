@@ -20,7 +20,7 @@
             {% for daynr in range(1, 9) %}
               <tr>
               {% for kolom in range(0, 4) %}
-                <% if ((daynr + kolom * 8) < 32) %>
+                {% if ((daynr + kolom * 8) < 32) %}
                   <td>{{ daynr + kolom * 8}}</td><td>
                   {% for day in data[month] %}
                     {% if (daynr + kolom * 8) == day %}
