@@ -123,6 +123,9 @@ def createrow(name, year, month, day):
       sortyear += 1
     ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
                                 sortyear, month, day, f'({year})'))
+  if year == 1972:
+    print(name, ageindays)
+    print(showdaysage(ageindays))
   if showdaysage(ageindays):
     celebrateday = today + timedelta(1000 - ageindays % 1000)
     daysyear = celebrateday.year
