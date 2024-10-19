@@ -126,12 +126,13 @@ def createrow(name, year, month, day):
   if showdaysage(ageindays):
     if ageindays % 1000 == 0:
       celebrateday = today
+      celebrateagedays = ageindays
     else:
       celebrateday = today + timedelta(1000 - ageindays % 1000)
+      celebrateagedays = ageindays + 1000 - ageindays % 1000
     daysyear = celebrateday.year
     daysmonth = celebrateday.month
     daysday = celebrateday.day
-    celebrateagedays = ageindays + 1000 - ageindays % 1000
     ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
                                 daysyear, daysmonth, daysday, celebrateagedays))
   return ret
