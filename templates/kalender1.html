@@ -55,7 +55,7 @@
     </div>
     <table>
     {% for monthnr in range(1, 13) %}
-     <tr><td colspan=8 heigth="0px"><a name="{{monthnr}}">&nbsp;</a></td></tr>
+     <tr><td colspan=8 class="month"><a name="{{monthnr}}">&nbsp;</a></td></tr>
      <tr><td colspan=8 class="month"></a>{{monthnr}}</td></tr>
      {% for month in data %}
       {% if monthnr == month %}
