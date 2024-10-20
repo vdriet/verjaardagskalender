@@ -3,38 +3,68 @@
   <title>Verjaardagskalender</title>
   <style>
    table, th, td {
-    border: 1px solid black;
+    border: 1px solid skyblue;
     border-collapse: collapse;
     padding: 3px;
    }
-   tr:nth-child(even) {
-    background-color: #f2f2f2
+   .month {
+    background: radial-gradient(blue, skyblue);
+    color: white;
+    font-size: 32px;
+    text-align: center;
+   }
+   .day {
+    background: linear-gradient(135deg, blue, skyblue);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    vertical-align: top;
+    width: 32px;
+   }
+   .birthdays {
+    background: skyblue;
+    font-size: 16px;
    }
   </style>
  </head>
  <body>
   <p>
-    {% if data %}
-      {% for monthnr in range(1, 13) %}
-        <h1>{{monthnr}}</h1>
-        {% for month in data %}
-          {% if monthnr == month %}
-            {% for daynr in range(1, 32) %}
-              <p>{{ daynr }} </p>
-              {% for day in data[month] %}
-                {% if daynr == day %}
-                  {% for t in data[month][day] %}
-                    <p>{{ t }} {{ data[month][day][t] }}</p>
-                  {% endfor %}
-                {% endif %}
-              {% endfor %}
+   {% if data %}
+    <table>
+    {% for monthnr in range(1, 13) %}
+     <tr><td colspan=8 class="month">{{monthnr}}</td></tr>
+     {% for month in data %}
+      {% if monthnr == month %}
+       {% for daynr in range(1, 9) %}
+        <tr>
+        {% for kolom in range(0, 4) %}
+         {% if (
+            (((month == 1) or (month == 3) or (month == 5) or (month == 7) or (month == 8) or (month == 10) or (month == 12)) and (daynr + kolom * 8) < 32) or
+            ((month == 2) and (daynr + kolom * 8) < 30) or
+            (((month == 4) or (month == 6) or (month == 9) or (month == 11)) and (daynr + kolom * 8) < 31)
+              ) %}
+          <td class="day">{{ daynr + kolom * 8}}</td><td class="birthdays">
+          {% for day in data[month] %}
+           {% if (daynr + kolom * 8) == day %}
+            {% for t in data[month][day] %}
+             {{ t }} {{ data[month][day][t] }}<br/>
             {% endfor %}
-          {% endif %}
+           {% endif %}
+          {% endfor %}
+          </td>
+         {% else %}
+          <td colspan=2 class="birthdays"></td>
+         {% endif %}
         {% endfor %}
-      {% endfor %}
-    {% else %}
-      <p>No data</p>
-    {% endif %}
+        </tr>
+       {% endfor %}
+      {% endif %}
+     {% endfor %}
+    {% endfor %}
+    </table>
+   {% else %}
+    <p>No data</p>
+   {% endif %}
   </p>
  </body>
 </html>
