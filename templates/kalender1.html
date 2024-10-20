@@ -10,6 +10,9 @@
    table {
     width: 100%;
    }
+   td.twelfth {
+    width: 100%/12;
+   }
    .month {
     background: radial-gradient(blue, skyblue);
     color: white;
@@ -42,7 +45,7 @@
     <div class=sticky>
      <table table-layout="fixed">
       <tr>{% for monthnr in range(1, 13) %}
-        <td class="month">{{ monthnr }}</td>
+        <td class="month twelfth">{{ monthnr }}</td>
        {% endfor %}</tr>
      </table>
     </div>
