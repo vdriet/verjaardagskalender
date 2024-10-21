@@ -24,8 +24,12 @@
   {% else %}
    <p>Op deze pagina wordt een verjaardagskalender getoond wanneer je ingelogd bent met een google-account.</p>
    <p>De datums die in de contactgegevens staan worden gebruikt op de kalender.</p>
-   <p>Bij een contact kunnen meerdere datums staan. Zonder label wordt het weergegeven als verjaardag. Wanneer er wel een label is, wordt dat label getoond.</p>
+   <p>Bij een contact kunnen meerdere datums staan. Een daarvan kan de verjaardag zijn, die wordt zonder label weergegeven.
+      Wanneer er een label is, wordt dat label getoond. Zonder label wordt een vraagteken getoond.</p>
    <p>Het label "Jubileum" in het Nederlands wordt weergegeven bij het opslaan gewijzigd in "Anniversary" en zal ook zo getoond worden.</p>
+   <p>Het jaartal van een datum wordt getoond tussen haakjes. Wanneer er geen jaar bekend is worden er vraagtekens getoond.<p>
+   <p>Wanneer er wel een jaar bekend is, zal ook het aantal dagen berekend worden. Wanneer er een geheel 1000-tal dagen voorbij is binnen
+      366 dagen zal dat op de kalender getoond worden. Het aantal dagen zal er dan bij staan, zonder haakjes.
    <p>Om de kalender te zien moet je <a href="/verjaardagskalender/login">inloggen</a>.</p>
   {% endif %}
  </body>
