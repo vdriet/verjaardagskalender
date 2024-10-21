@@ -13,21 +13,20 @@
   </style>
  </head>
  <body>
-  <p>
-    Verjaardagskalender
-  </p>
-  <p>
-    {% if user %}
-      {% if valid %}
-        Token is geldig
-      {% else %}
-        Token is niet meer geldig
-      {% endif %}
-      <br/>
-      <a href="/verjaardagskalender/logout">logout</a>
-    {% else %}
-      <a href="/verjaardagskalender/login">login</a>
-    {% endif %}
-  </p>
+  <h1>Verjaardagskalender</h1>
+  {% if user %}
+   {% if valid %}
+    <p>Token is geldig</p>
+   {% else %}
+    <p>Token is niet meer geldig</p>
+   {% endif %}
+   <p>Klik <a href="/verjaardagskalender/logout">hier</a> om uit te loggen</p>
+  {% else %}
+   <p>Op deze pagina wordt een verjaardagskalender getoond wanneer je ingelogd bent met een google-account.</p>
+   <p>De datums die in de contactgegevens staan worden gebruikt op de kalender. Bij een contact kunnen meerdere datums staan. Zonder label
+      wordt het weergegeven als verjaardag. Wanneer er wel een label is, wordt dat label getoond.</p>
+   <p></p>
+   <p>Om de kalender te zien moet je <a href="/verjaardagskalender/login">inloggen</a>.</p>
+  {% endif %}
  </body>
 </html>

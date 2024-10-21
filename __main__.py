@@ -40,19 +40,13 @@ def lees_json(url, token):
 def istokenvalid():
   """ check geldigheid van het sessie-token """
   exp = session.get('exp')
-  if exp is None:
-    print('Geen token')
+  if exp is None or exp - time() < 0:
     return False
-  now = time()
-  if exp - now < 0:
-    print(f'Verlopen {now - exp:.1f} seconden geleden')
-    return False
-  print(f'Nog geldig: {exp - now:.1f} seconden')
   return True
 
 @app.route('/verjaardagskalender', methods=['GET'])
-def index1():
-  """ tonen van nieuwe hoofdpagina """
+def hoofdpagina():
+  """ tonen van hoofdpagina """
   user = session.get('user')
   token = session.get('access_token')
   valid = istokenvalid()
@@ -60,16 +54,11 @@ def index1():
     return kalender()
   return render_template('index.html', user=user, token=token, valid=valid)
 
-@app.route('/verjaardagskalender/show', methods=['GET'])
-def kalendershow():
-  """ ophalen van de kalender """
-  return kalender()
-
 def kalender():
   """ ophalen gegevens en maken verjaardagskalender """
   if not istokenvalid():
     redirect_uri = url_for('authorize', _external=True, _scheme='https')
-    session['returnpath'] = '/verjaardagskalender/show'
+    session['returnpath'] = '/verjaardagskalender'
     return oauth.google.authorize_redirect(redirect_uri)
   connections = getconnections()
   data = processconnections(connections)
