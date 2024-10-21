@@ -50,6 +50,16 @@ def istokenvalid():
   print(f'Nog geldig: {exp - now:.1f} seconden')
   return True
 
+@app.route('/verjaardagskalender1', methods=['GET'])
+def index1():
+  """ tonen van nieuwe hoofdpagina """
+  user = session.get('user')
+  token = session.get('access_token')
+  valid = istokenvalid()
+  if valid:
+    return kalender()
+  return render_template('index.html', user=user, token=token, valid=valid)
+
 @app.route('/verjaardagskalender', methods=['GET'])
 def index():
   """ tonen van hoofdpagina met informatie """
@@ -59,8 +69,12 @@ def index():
   return render_template('index.html', user=user, token=token, valid=valid)
 
 @app.route('/verjaardagskalender/show', methods=['GET'])
+def kalendershow():
+  """ ophalen van de kalender """
+  return kalender()
+
 def kalender():
-  """ ophalen van de verjaardagskalender """
+  """ ophalen gegevens en maken verjaardagskalender """
   if not istokenvalid():
     redirect_uri = url_for('authorize', _external=True, _scheme='https')
     session['returnpath'] = '/verjaardagskalender/show'

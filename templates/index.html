@@ -18,12 +18,6 @@
   </p>
   <p>
     {% if user %}
-      <pre>
-      {{ user|tojson }}
-      </pre>
-      <br/><br/>
-      {{ token }}
-      <br/>
       {% if valid %}
         Token is geldig
       {% else %}
