@@ -69,9 +69,13 @@
          <td class="day">{{ daynr + kolom * 8}}</td><td class="birthdays">
          {% for day in data[month] %}
           {% if (daynr + kolom * 8) == day %}
-           {% for t in data[month][day] %}
-            {{ t }} {{ data[month][day][t] }}<br/>
-           {% endfor %}
+           {% if data[month][day] %}
+            {% for t in data[month][day] %}
+             {{ t }} {{ data[month][day][t] }}<br/>
+            {% endfor %}
+           {% else %}
+             -
+           {% endif %}
           {% endif %}
          {% endfor %}
          </td>
