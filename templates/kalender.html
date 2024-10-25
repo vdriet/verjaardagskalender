@@ -71,12 +71,15 @@
          {% for day in data[month] %}
           {% if (daynr + kolom * 8) == day %}
            {% for t in data[month][day] %}
+            {{ hasbirthday }}
             {% set hasbirthday = 0 %}
             {{ t }} {{ data[month][day][t] }}<br/>
+            {{ hasbirthday }}
            {% endfor %}
           {% endif %}
          {% endfor %}
-         {% if hasbirthday == 1 %}
+        [ {{ hasbirthday }} ]
+        {% if hasbirthday == 1 %}
           -
          {% endif %}
          </td>
@@ -96,4 +99,3 @@
   <p><a href="/verjaardagskalender/logout">logout</a></p>
  </body>
 </html>
-
