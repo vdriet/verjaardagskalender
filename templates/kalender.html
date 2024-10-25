@@ -71,16 +71,13 @@
          {% for day in data[month] %}
           {% if (daynr + kolom * 8) == day %}
            {% for t in data[month][day] %}
-            {{ ns.hasbirthday }}
             {% set ns.hasbirthday = 0 %}
             {{ t }} {{ data[month][day][t] }}<br/>
-            {{ ns.hasbirthday }}
            {% endfor %}
           {% endif %}
          {% endfor %}
-         [ {{ ns.hasbirthday }} ]
          {% if ns.hasbirthday == 1 %}
-          -
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          {% endif %}
          </td>
         {% else %}
