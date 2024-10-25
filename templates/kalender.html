@@ -67,7 +67,7 @@
            (((month == 4) or (month == 6) or (month == 9) or (month == 11)) and (daynr + kolom * 8) < 31)
               ) %}
          <td class="day">{{ daynr + kolom * 8}}</td><td class="birthdays">
-         {% set hasbirthday = 1 %}
+         {% set hasbirthday = 0 %}
          {% for day in data[month] %}
           {% if (daynr + kolom * 8) == day %}
            {% for t in data[month][day] %}
