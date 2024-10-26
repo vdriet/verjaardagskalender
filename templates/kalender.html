@@ -10,6 +10,9 @@
    table {
     width: 100%;
    }
+   table.month {
+    table-layout: fixed;
+   }
    td.twelfth {
     width: 8%;
    }
@@ -46,7 +49,7 @@
  <body>
   {% if data %}
    <div class=sticky>
-    <table table-layout="fixed">
+    <table class="month">
      <tr>{% for monthnr in range(1, 13) %}
        <td class="month twelfth"><a href="#{{monthnr}}">{{ monthnr }}</a></td>
       {% endfor %}</tr>
