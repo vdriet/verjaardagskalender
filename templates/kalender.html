@@ -53,11 +53,9 @@
     </table>
    </div>
    <table>
-   {% for monthnr in range(1, 13) %}
-    <tr><td colspan=8 class="month"><a name="{{monthnr}}">&nbsp;</a></td></tr>
-    <tr><td colspan=8 class="month">{{monthnr}}</td></tr>
-    {% for month in data %}
-     {% if monthnr == month %}
+   {% for month in range(1, 13) %}
+    <tr><td colspan=8 class="month"><a name="{{month}}">&nbsp;</a></td></tr>
+    <tr><td colspan=8 class="month">{{month}}</td></tr>
       {% for daynr in range(1, 9) %}
        <tr>
        {% for kolom in range(0, 4) %}
@@ -78,6 +76,9 @@
          {% endfor %}
          {% if ns.hasbirthday == 1 %}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
          {% endif %}
          </td>
         {% else %}
@@ -86,8 +87,6 @@
        {% endfor %}
        </tr>
       {% endfor %}
-     {% endif %}
-    {% endfor %}
    {% endfor %}
    </table>
   {% else %}
