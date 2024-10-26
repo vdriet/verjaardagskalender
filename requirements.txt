@@ -17,4 +17,4 @@ setuptools==75.2.0
 slack_sdk==3.33.2
 urllib3==2.2.3
 waitress==3.0.0
-Werkzeug==3.0.5
+Werkzeug==3.0.6
