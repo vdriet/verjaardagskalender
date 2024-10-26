@@ -1,4 +1,4 @@
-<html>
+<html lang="nl">
  <head>
   <title>Verjaardagskalender</title>
   <style>
@@ -54,7 +54,7 @@
    </div>
    <table>
    {% for month in range(1, 13) %}
-    <tr><td colspan=8 class="month"><a name="{{month}}">&nbsp;</a></td></tr>
+    <tr><td colspan=8 class="month"><a id="{{month}}">&nbsp;</a></td></tr>
     <tr><td colspan=8 class="month">{{month}}</td></tr>
     {% for daynr in range(1, 9) %}
      <tr>
