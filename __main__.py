@@ -20,12 +20,13 @@ SHOWDAYS = 366
 oauth = OAuth(app)
 
 oauth.register(
-    name='google',
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-    client_kwargs={
-        'scope': 'openid email profile https://www.googleapis.com/auth/contacts'
-    }
+  name='google',
+  server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
+  client_kwargs={
+    'scope': 'openid email profile https://www.googleapis.com/auth/contacts'
+  }
 )
+
 
 def lees_json(url, token):
   """ lees json van een url met autorisatie """
@@ -37,12 +38,14 @@ def lees_json(url, token):
     content_json = json.loads(response)
   return content_json
 
+
 def istokenvalid():
   """ check geldigheid van het sessie-token """
   exp = session.get('exp')
   if exp is None or exp - time() < 0:
     return False
   return True
+
 
 @app.route('/verjaardagskalender', methods=['GET'])
 def hoofdpagina():
@@ -53,6 +56,7 @@ def hoofdpagina():
   if valid:
     return kalender()
   return render_template('index.html', user=user, token=token, valid=valid)
+
 
 def kalender():
   """ ophalen gegevens en maken verjaardagskalender """
@@ -73,6 +77,7 @@ def kalender():
     newdata[month] = monthdata
   return render_template('kalender.html', data=newdata)
 
+
 def getconnections():
   """ haal de contacten op """
   url = 'https://people.googleapis.com/v1/people/me/connections?personFields=names,birthdays,events'
@@ -88,12 +93,14 @@ def getconnections():
     pageurl = url + f'&pageToken={pagetoken}'
   return data
 
+
 def createrowdate(name, jsondate):
   """ maken een regel met gegevens van een verjaardag """
   outy = jsondate.get('year', '????')
   outm = jsondate.get('month')
   outd = jsondate.get('day')
   return createrow(name, outy, outm, outd)
+
 
 def createrow(name, year, month, day):
   """ maken van een regel op basis van dag/maand/jaar """
@@ -120,7 +127,8 @@ def createrow(name, year, month, day):
                                 daysyear, daysmonth, daysday, celebrateagedays))
   return ret
 
-def createrowdatekey(name, datetext, daysyear, daysmonth, daysday, ageindays): # pylint: disable=too-many-arguments
+
+def createrowdatekey(name, datetext, daysyear, daysmonth, daysday, ageindays):  # pylint: disable=too-many-arguments
   """ maken van een regel met een sorteersleutel er bij """
   row = {}
   sortkey = f'{daysyear}-{daysmonth:02d}-{daysday:02d}'
@@ -131,6 +139,7 @@ def createrowdatekey(name, datetext, daysyear, daysmonth, daysday, ageindays): #
   row['sortkey'] = sortkey
   row['ageindays'] = ageindays
   return row
+
 
 def nextbirthday(month, day):
   """ bepaal de volgende verjaardag """
@@ -143,10 +152,12 @@ def nextbirthday(month, day):
     nextbirthdayyear = today.year
   return date(nextbirthdayyear, month, day)
 
+
 def showbirthday(month, day):
   """ bepaal of de gegevens getoond moeten worden """
   daysfromnow = (nextbirthday(month, day) - date.today()).days
   return 0 <= daysfromnow <= SHOWDAYS
+
 
 def showdaysage(ageindays):
   """ bepaal of de datum op basis van aantal dagen getoond moet worden """
@@ -156,6 +167,7 @@ def showdaysage(ageindays):
   if daysinto1000 == 0 or daysinto1000 > (1000 - SHOWDAYS):
     return True
   return False
+
 
 def processconnections(connections):
   """ verwerk de contacten """
@@ -181,12 +193,14 @@ def processconnections(connections):
           connectionslist.extend(createrowdate(longname, eventdate))
   return connectionslist
 
+
 @app.route('/verjaardagskalender/login')
 def login():
   """ login op basis van oauth """
   session['returnpath'] = '/verjaardagskalender'
   redirect_uri = url_for('authorize', _external=True, _scheme='https')
   return oauth.google.authorize_redirect(redirect_uri)
+
 
 @app.route('/verjaardagskalender/logout')
 def logout():
@@ -195,6 +209,7 @@ def logout():
   session.pop('user', None)
   session.pop('access_token', None)
   return redirect('/verjaardagskalender')
+
 
 @app.route('/verjaardagskalender/authorize')
 def authorize():
@@ -205,6 +220,7 @@ def authorize():
   session['access_token'] = token['access_token']
   returnpath = session.get('returnpath', '/verjaardagskalender')
   return redirect(returnpath)
+
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0', port=8084, debug=False)
