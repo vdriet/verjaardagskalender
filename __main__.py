@@ -5,7 +5,7 @@ from time import time
 from urllib.request import Request, urlopen
 
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, json, redirect, render_template, session, url_for
+from flask import Flask, json, redirect, render_template, session, url_for, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
@@ -198,7 +198,7 @@ def processconnections(connections):
 def login():
   """ login op basis van oauth """
   session['returnpath'] = '/verjaardagskalender'
-  redirect_uri = url_for('authorize', _external=True, _scheme='https')
+  redirect_uri = url_for('authorize', _external=True, _scheme=request.scheme)
   return oauth.google.authorize_redirect(redirect_uri)
 
 
