@@ -198,7 +198,11 @@ def processconnections(connections):
 def login():
   """ login op basis van oauth """
   session['returnpath'] = '/verjaardagskalender'
-  redirect_uri = url_for('authorize', _external=True, _scheme=request.scheme)
+  if 'localhost' in request.host:
+    protocol = 'http'
+  else:
+    protocol = 'https'
+  redirect_uri = url_for('authorize', _external=True, _scheme=protocol)
   return oauth.google.authorize_redirect(redirect_uri)
 
 
