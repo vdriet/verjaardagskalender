@@ -108,11 +108,8 @@ def createrow(name, year, month, day):
   today = date.today()
   ageindays = '-' if year == '????' else (today - date(year, month, day)).days
   if showbirthday(month, day):
-    sortyear = today.year
-    if month < today.month:
-      sortyear += 1
     ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
-                                sortyear, month, day, f'({year})'))
+                                month, day, f'({year})'))
   if showdaysage(ageindays):
     if ageindays % 1000 == 0:
       celebrateday = today
@@ -124,19 +121,17 @@ def createrow(name, year, month, day):
     daysmonth = celebrateday.month
     daysday = celebrateday.day
     ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
-                                daysyear, daysmonth, daysday, celebrateagedays))
+                                daysmonth, daysday, celebrateagedays))
   return ret
 
 
-def createrowdatekey(name, datetext, daysyear, daysmonth, daysday, ageindays):  # pylint: disable=too-many-arguments
+def createrowdatekey(name, datetext, daysmonth, daysday, ageindays):  # pylint: disable=too-many-arguments
   """ maken van een regel met een sorteersleutel er bij """
   row = {}
-  sortkey = f'{daysyear}-{daysmonth:02d}-{daysday:02d}'
   row['name'] = name
   row['date'] = datetext
   row['month'] = daysmonth
   row['day'] = daysday
-  row['sortkey'] = sortkey
   row['ageindays'] = ageindays
   return row
 
