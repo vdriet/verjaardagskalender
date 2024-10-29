@@ -64,22 +64,13 @@ def kalender():
     redirect_uri = url_for('authorize', _external=True, _scheme='https')
     session['returnpath'] = '/verjaardagskalender'
     return oauth.google.authorize_redirect(redirect_uri)
-  connections = getconnections()
-  data = processconnections(connections)
-  newdata = {}
-  for row in data:
-    month = int(row['month'])
-    day = int(row['day'])
-    monthdata = newdata.get(month, {})
-    daydata = monthdata.get(day, {})
-    daydata[row['name']] = row['ageindays']
-    monthdata[day] = daydata
-    newdata[month] = monthdata
-  return render_template('kalender.html', data=newdata)
+  contacten = haalcontacten()
+  data = verwerkcontacten(contacten)
+  return render_template('kalender.html', data=data)
 
 
-def getconnections():
-  """ haal de contacten op """
+def haalcontacten():
+  """ haal contacten """
   url = 'https://people.googleapis.com/v1/people/me/connections?personFields=names,birthdays,events'
   token = session.get('access_token')
   pageurl = url
@@ -94,99 +85,86 @@ def getconnections():
   return data
 
 
-def createrowdate(name, jsondate):
-  """ maken een regel met gegevens van een verjaardag """
-  outy = jsondate.get('year', '????')
-  outm = jsondate.get('month')
-  outd = jsondate.get('day')
-  return createrow(name, outy, outm, outd)
-
-
-def createrow(name, year, month, day):
-  """ maken van een regel op basis van dag/maand/jaar """
-  ret = []
-  today = date.today()
-  ageindays = '-' if year == '????' else (today - date(year, month, day)).days
-  if showbirthday(month, day):
-    ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
-                                month, day, f'({year})'))
-  if showdaysage(ageindays):
-    if ageindays % 1000 == 0:
-      celebrateday = today
-      celebrateagedays = ageindays
-    else:
-      celebrateday = today + timedelta(1000 - ageindays % 1000)
-      celebrateagedays = ageindays + 1000 - ageindays % 1000
-    daysyear = celebrateday.year
-    daysmonth = celebrateday.month
-    daysday = celebrateday.day
-    ret.append(createrowdatekey(name, f'{year}-{month:02d}-{day:02d}',
-                                daysmonth, daysday, celebrateagedays))
-  return ret
-
-
-def createrowdatekey(name, datetext, daysmonth, daysday, ageindays):  # pylint: disable=too-many-arguments
-  """ maken van een regel met een sorteersleutel er bij """
-  row = {}
-  row['name'] = name
-  row['date'] = datetext
-  row['month'] = daysmonth
-  row['day'] = daysday
-  row['ageindays'] = ageindays
-  return row
-
-
-def nextbirthday(month, day):
-  """ bepaal de volgende verjaardag """
-  today = date.today()
-  todaymonth = today.month
-  todayday = today.day
-  if todaymonth > month or (todaymonth == month and todayday > day):
-    nextbirthdayyear = today.year + 1
-  else:
-    nextbirthdayyear = today.year
-  return date(nextbirthdayyear, month, day)
-
-
-def showbirthday(month, day):
-  """ bepaal of de gegevens getoond moeten worden """
-  daysfromnow = (nextbirthday(month, day) - date.today()).days
-  return 0 <= daysfromnow <= SHOWDAYS
-
-
-def showdaysage(ageindays):
+def toonleeftijdindagen(leeftijdindagen):
   """ bepaal of de datum op basis van aantal dagen getoond moet worden """
-  if ageindays == '-':
-    return False
-  daysinto1000 = int(ageindays) % 1000
-  if daysinto1000 == 0 or daysinto1000 > (1000 - SHOWDAYS):
+  dagenvan1000tal = int(leeftijdindagen) % 1000
+  if dagenvan1000tal == 0 or dagenvan1000tal > (1000 - SHOWDAYS):
     return True
   return False
 
 
-def processconnections(connections):
-  """ verwerk de contacten """
-  connectionslist = []
-  for person in connections:
-    names = person.get('names')
-    if names is None:
-      name = 'No Name'
-    else:
-      name = names[0].get('displayName')
+def bepaalnaam(persoon):
+  """ bepaal de naam van het contact """
+  names = persoon.get('names')
+  if names is None:
+    return 'No Name'
+  else:
+    return names[0].get('displayName', 'No Name')
 
-    birthdays = person.get('birthdays')
-    if not birthdays is None:
-      birthday = birthdays[0].get('date')
-      if not birthday is None:
-        connectionslist.extend(createrowdate(name, birthday))
-    events = person.get('events')
-    if not events is None:
-      for event in events:
-        longname = name + ' (' + event.get('type', '?') + ')'
-        eventdate = event.get('date')
-        if not eventdate is None:
-          connectionslist.extend(createrowdate(longname, eventdate))
-  return connectionslist
+
+def maaklegekalender():
+  """ maak een lege kalender """
+  kalender = {}
+  for maandnr in range(1, 13):
+    maandlengte = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    maand = {}
+    for dagnr in range(1, maandlengte[maandnr] + 1):
+      maand[dagnr] = {}
+    kalender[maandnr] = maand
+  return kalender
+
+
+def voegdatumaanlijsttoe(contactenlijst, naam, datum):
+  """ voeg een datum aan de lijst toe """
+  jaar = datum.get('year', '????')
+  maand = datum.get('month')
+  dag = datum.get('day')
+  eventementenopdag = contactenlijst.get(maand).get(dag)
+  eventementenopdag[naam] = f'({jaar})'
+
+
+def voegfeestdagtoeaanlijst(contactenlijst, naam, datum):
+  jaar = datum.get('year')
+  if jaar is None:
+    return
+  maand = datum.get('month')
+  dag = datum.get('day')
+  vandaag = date.today()
+  leeftijdindagen = (vandaag - date(jaar, maand, dag)).days
+  if toonleeftijdindagen(leeftijdindagen):
+    if leeftijdindagen % 1000 == 0:
+      feestdatum = vandaag
+      aantaldagentevieren = leeftijdindagen
+    else:
+      feestdatum = vandaag + timedelta(1000 - leeftijdindagen % 1000)
+      aantaldagentevieren = leeftijdindagen + 1000 - leeftijdindagen % 1000
+    feestmaand = feestdatum.month
+    feestdag = feestdatum.day
+    eventementenopdag = contactenlijst.get(feestmaand).get(feestdag)
+    eventementenopdag[naam] = f'{aantaldagentevieren} dagen'
+
+
+def verwerkcontacten(contacten):
+  """ verwerk de contacten """
+  feestdagenlijst = maaklegekalender()
+  for persoon in contacten:
+    naam = bepaalnaam(persoon)
+
+    geboortedagen = persoon.get('birthdays')
+    if not geboortedagen is None:
+      geboortedatum = geboortedagen[0].get('date')
+      if not geboortedatum is None:
+        voegdatumaanlijsttoe(feestdagenlijst, naam, geboortedatum)
+        voegfeestdagtoeaanlijst(feestdagenlijst, naam, geboortedatum)
+    evenementen = persoon.get('events')
+    if not evenementen is None:
+      for evenement in evenementen:
+        langenaam = naam + ' (' + evenement.get('type', '?') + ')'
+        evenementdatum = evenement.get('date')
+        if not evenementdatum is None:
+          voegdatumaanlijsttoe(feestdagenlijst, langenaam, evenementdatum)
+          voegfeestdagtoeaanlijst(feestdagenlijst, langenaam, evenementdatum)
+  return feestdagenlijst
 
 
 @app.route('/verjaardagskalender/login')
