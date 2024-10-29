@@ -98,20 +98,19 @@ def bepaalnaam(persoon):
   names = persoon.get('names')
   if names is None:
     return 'No Name'
-  else:
-    return names[0].get('displayName', 'No Name')
+  return names[0].get('displayName', 'No Name')
 
 
 def maaklegekalender():
   """ maak een lege kalender """
-  kalender = {}
+  legekalender = {}
   for maandnr in range(1, 13):
     maandlengte = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     maand = {}
     for dagnr in range(1, maandlengte[maandnr] + 1):
       maand[dagnr] = {}
-    kalender[maandnr] = maand
-  return kalender
+    legekalender[maandnr] = maand
+  return legekalender
 
 
 def voegdatumaanlijsttoe(contactenlijst, naam, datum):
@@ -124,6 +123,7 @@ def voegdatumaanlijsttoe(contactenlijst, naam, datum):
 
 
 def voegfeestdagtoeaanlijst(contactenlijst, naam, datum):
+  """ voeg een 1000-dagen feestdag toe aan de lijst """
   jaar = datum.get('year')
   if jaar is None:
     return
