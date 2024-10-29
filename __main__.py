@@ -1,4 +1,4 @@
-""" maken van een verjaardagskalender op basis van google contacten """
+""" Maken van een verjaardagskalender op basis van google contacten """
 from datetime import date, timedelta
 import os
 from time import time
@@ -29,7 +29,7 @@ oauth.register(
 
 
 def lees_json(url, token):
-  """ lees json van een url met autorisatie """
+  """ Lees json van een url met autorisatie """
   req = Request(url)
   req.add_header('Content-Type', 'application/json')
   req.add_header('Authorization', f'Bearer {token}')
@@ -40,7 +40,7 @@ def lees_json(url, token):
 
 
 def istokenvalid():
-  """ check geldigheid van het sessie-token """
+  """ Controleer geldigheid van het sessie-token """
   exp = session.get('exp')
   if exp is None or exp - time() < 0:
     return False
@@ -49,7 +49,7 @@ def istokenvalid():
 
 @app.route('/verjaardagskalender', methods=['GET'])
 def hoofdpagina():
-  """ tonen van hoofdpagina """
+  """ Tonen van de hoofdpagina """
   user = session.get('user')
   token = session.get('access_token')
   valid = istokenvalid()
@@ -59,7 +59,7 @@ def hoofdpagina():
 
 
 def kalender():
-  """ ophalen gegevens en maken verjaardagskalender """
+  """ Ophalen gegevens en maken verjaardagskalender """
   if not istokenvalid():
     redirect_uri = url_for('authorize', _external=True, _scheme='https')
     session['returnpath'] = '/verjaardagskalender'
@@ -86,7 +86,7 @@ def haalcontacten():
 
 
 def toonleeftijdindagen(leeftijdindagen):
-  """ bepaal of de datum op basis van aantal dagen getoond moet worden """
+  """ Bepaal of de datum op basis van aantal dagen getoond moet worden """
   dagenvan1000tal = int(leeftijdindagen) % 1000
   if dagenvan1000tal == 0 or dagenvan1000tal > (1000 - SHOWDAYS):
     return True
@@ -94,7 +94,7 @@ def toonleeftijdindagen(leeftijdindagen):
 
 
 def bepaalnaam(persoon):
-  """ bepaal de naam van het contact """
+  """ Bepaal de naam van het contact """
   names = persoon.get('names')
   if names is None:
     return 'No Name'
@@ -102,7 +102,7 @@ def bepaalnaam(persoon):
 
 
 def maaklegekalender():
-  """ maak een lege kalender """
+  """ Maak een lege kalender """
   legekalender = {}
   for maandnr in range(1, 13):
     maandlengte = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
@@ -114,7 +114,7 @@ def maaklegekalender():
 
 
 def voegdatumaanlijsttoe(contactenlijst, naam, datum):
-  """ voeg een datum aan de lijst toe """
+  """ Voeg een datum aan de lijst toe """
   jaar = datum.get('year', '????')
   maand = datum.get('month')
   dag = datum.get('day')
@@ -123,7 +123,7 @@ def voegdatumaanlijsttoe(contactenlijst, naam, datum):
 
 
 def voegfeestdagtoeaanlijst(contactenlijst, naam, datum):
-  """ voeg een 1000-dagen feestdag toe aan de lijst """
+  """ Voeg een 1000-dagen feestdag toe aan de lijst """
   jaar = datum.get('year')
   if jaar is None:
     return
@@ -145,7 +145,7 @@ def voegfeestdagtoeaanlijst(contactenlijst, naam, datum):
 
 
 def verwerkcontacten(contacten):
-  """ verwerk de contacten """
+  """ Verwerk de contacten """
   feestdagenlijst = maaklegekalender()
   for persoon in contacten:
     naam = bepaalnaam(persoon)
