@@ -1,9 +1,10 @@
 """ Maken van een verjaardagskalender op basis van google contacten """
-from datetime import date, timedelta
 import os
+from datetime import date, timedelta
 from time import time
 from urllib.request import Request, urlopen
 
+import waitress
 from authlib.integrations.flask_client import OAuth
 from flask import Flask, json, redirect, render_template, session, url_for, request
 from werkzeug.middleware.proxy_fix import ProxyFix
@@ -200,4 +201,4 @@ def authorize():
 
 
 if __name__ == '__main__':
-  app.run(host='0.0.0.0', port=8084, debug=False)
+  waitress.serve(app, host="0.0.0.0", port=8084)
