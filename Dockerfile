@@ -12,4 +12,4 @@ RUN pip --trusted-host pypi.python.org install --no-cache-dir -r requirements.tx
 COPY /*.py /usr/src/app/
 COPY /templates/* /usr/src/app/templates/
 
-CMD [ "python", "-u", "." ]
+CMD [ "python", "-u", "verjaardagskalender.py" ]

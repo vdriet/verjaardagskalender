@@ -12,6 +12,7 @@ Jinja2==3.1.4
 MarkupSafe==3.0.2
 pip==24.3.1
 pycparser==2.22
+pytest
 requests==2.32.3
 setuptools==75.6.0
 urllib3==2.2.3
