@@ -1,1 +1,1 @@
-. ./bin/activate
+. ./verjaardagskalender_venv/bin/activate
