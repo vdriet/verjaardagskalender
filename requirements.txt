@@ -15,6 +15,6 @@ pycparser==2.22
 pytest
 requests==2.32.3
 setuptools==75.6.0
-urllib3==2.2.3
+urllib3==2.3.0
 waitress==3.0.2
 Werkzeug==3.1.3
