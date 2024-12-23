@@ -6,3 +6,4 @@ pyvenv.cfg
 env.list
 __pycache__
 .idea
+.coverage

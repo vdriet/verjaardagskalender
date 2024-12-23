@@ -7,6 +7,7 @@ click==8.1.8
 coverage==7.6.9
 cryptography==44.0.0
 Flask==3.1.0
+freezegun==1.5.1
 idna==3.10
 iniconfig==2.0.0
 itsdangerous==2.2.0
@@ -17,8 +18,10 @@ pip==24.3.1
 pluggy==1.5.0
 pycparser==2.22
 pytest==8.3.4
+python-dateutil==2.9.0.post0
 requests==2.32.3
 setuptools==75.6.0
+six==1.17.0
 urllib3==2.3.0
 waitress==3.0.2
 Werkzeug==3.1.3
