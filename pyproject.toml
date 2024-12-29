@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 name = "verjaardagskalender"
 version = "1.0.0"
 authors = [
-  { name="Peter van de Riet", email="vdriet@gmail.com" },
+    { name = "Peter van de Riet", email = "vdriet@gmail.com" },
 ]
 description = "verjaardagskalender in Docker"
 readme = "README.md"
@@ -26,3 +26,19 @@ Issues = "https://github.com/vdriet/verjaardagskalender/issues"
 addopts = [
     "--import-mode=importlib",
 ]
+
+[tool.coverage.run]
+omit = [
+    "*/tests/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:"
+]
+#todo: naar 90
+fail_under = 50
+
+[tool.pylint]
+init-hook = "import sys; sys.path.append('./lib/python3.11/site-packages/');sys.path.append('.')"
+indent-string = "  "

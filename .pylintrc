@@ -1,3 +1,0 @@
-[MASTER]
-init-hook='import sys; sys.path.append("./verjaardagskalender_venv/lib/python3.11/site-packages/")'
-indent-string='  '
