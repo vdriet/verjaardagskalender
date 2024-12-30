@@ -40,5 +40,4 @@ exclude_lines = [
 fail_under = 50
 
 [tool.pylint]
-init-hook = "import sys; sys.path.append('./lib/python3.11/site-packages/');sys.path.append('.')"
 indent-string = "  "
