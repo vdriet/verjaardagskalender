@@ -2,11 +2,11 @@
 import os
 from datetime import date, timedelta
 from time import time
-from urllib.request import Request, urlopen
 
+import requests
 import waitress
 from authlib.integrations.flask_client import OAuth
-from flask import Flask, json, redirect, render_template, session, url_for, request
+from flask import Flask, redirect, render_template, session, url_for, request
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 app = Flask(__name__)
@@ -31,13 +31,13 @@ oauth.register(
 
 def lees_json(url, token):
   """ Lees json van een url met autorisatie """
-  req = Request(url)
-  req.add_header('Content-Type', 'application/json')
-  req.add_header('Authorization', f'Bearer {token}')
-  with urlopen(req) as stream:
-    response = stream.read()
-    content_json = json.loads(response)
-  return content_json
+  try:
+    headers = {'Content-Type': 'application/json',
+               'Authorization': f'Bearer {token}'}
+    req = requests.get(url, headers=headers, verify=False, timeout=6, allow_redirects=False)
+    return req.json()
+  except requests.ConnectionError:
+    return 'failed to connect'
 
 
 def istokenvalid():
