@@ -5,4 +5,4 @@ pip list --outdated
 pylint *.py
 coverage run -m pytest tests
 coverage report -m
-docker build --tag verjaardagskalender .
+uname -n | grep -v penguin && docker build --tag verjaardagskalender .
