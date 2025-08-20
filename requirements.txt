@@ -8,7 +8,7 @@ click==8.2.2
 coverage==7.10.4
 cryptography==45.0.6
 dill==0.4.0
-Flask==3.1.1
+Flask==3.1.2
 freezegun==1.5.5
 idna==3.10
 iniconfig==2.1.0
