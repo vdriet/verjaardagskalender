@@ -23,7 +23,7 @@ platformdirs==4.10.0
 pluggy==1.6.0
 pycparser==3.0
 pylint==4.0.5
-pytest==9.0.3
+pytest==9.1.0
 python-dateutil==2.9.0.post0
 requests==2.34.2
 setuptools==82.0.1
