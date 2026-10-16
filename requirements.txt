@@ -22,7 +22,7 @@ pip==26.2.1
 platformdirs==4.13.3
 pluggy==1.7.0
 pycparser==3.11
-pylint==4.0.9
+pylint==4.1.3
 pytest==9.1.1
 python-dateutil==2.9.0.post0
 requests==2.34.2
