@@ -17,7 +17,7 @@ itsdangerous==2.2.0
 Jinja2==3.1.6
 MarkupSafe==3.0.4
 mccabe==0.7.0
-packaging==26.3
+packaging==26.4
 pip==26.3
 platformdirs==4.14.8
 pluggy==1.7.0
